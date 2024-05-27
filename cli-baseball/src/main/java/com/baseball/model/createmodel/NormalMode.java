@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CreateRandom {
+public class NormalMode extends CreateModel {
     List<Integer> random = new ArrayList<>();
 
-    public CreateRandom() {
+    public NormalMode(){
+        createRandom();
+    }
+
+    @Override
+    void createRandom() {
         Random random = new Random();
 
-        while (true) {
+        while (this.random.size() != 3) {
             int newRan = random.nextInt(10);
             if (!this.random.contains(newRan)) {
                 this.random.add(newRan);
             }
-            if(this.random.size() == 3) break;
         }
     }
 
+    @Override
     public List<Integer> getRandom() {
         return random;
     }

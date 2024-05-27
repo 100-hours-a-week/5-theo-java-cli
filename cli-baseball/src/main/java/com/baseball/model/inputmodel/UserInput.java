@@ -1,20 +1,27 @@
 package com.baseball.model.inputmodel;
 
+import com.baseball.validation.UserInputValidation;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInput {
-    private String str;
     Scanner sc = new Scanner(System.in);
+    public List<Integer> arr = new ArrayList<>();
+    UserInputValidation uiv = new UserInputValidation();
+
 
     public void userInput() {
-        str = sc.nextLine();
+        String str = sc.nextLine();
+        arr = uiv.userInputValidation(str);
     }
 
     public int userInt(){
         return sc.nextInt();
     }
 
-    public String getUserInput() {
-        return str;
+    public List<Integer> getUserInput() {
+        return arr;
     }
 }

@@ -1,20 +1,17 @@
 package com.baseball.validation;
 
-import com.baseball.model.inputmodel.UserInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserInputValidation {
-    UserInput input = new UserInput();
-    public List<Integer> arr = new ArrayList<>();
+    private List<Integer> arr = new ArrayList<>();
 
-    public List<Integer> userInputValidation() {
-        input.userInput();
-        if (!inputTypeValid(input.getUserInput()) && !inputLengthValid(input.getUserInput())) {
+    public List<Integer> userInputValidation(String str) {
+        if (!inputTypeValid(str) && !inputLengthValid(str)) {
             System.out.println("잘못된 입력입니다.");
         }
-        convertInput(input.getUserInput());
+        convertInput(str);
 
         return arr;
     }

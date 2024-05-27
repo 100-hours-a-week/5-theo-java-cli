@@ -1,56 +1,57 @@
 package com.baseball.controller;
 
-import com.baseball.model.createmodel.CreateExRandom;
-import com.baseball.model.createmodel.CreateRandom;
+
+import com.baseball.model.createmodel.ExtendMode;
+import com.baseball.model.createmodel.NormalMode;
 import com.baseball.model.inputmodel.UserInput;
-import com.baseball.validation.UserInputValidation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
-//    CreateRandom createRandom = new CreateRandom();
-//    CreateExRandom createExRandom = new CreateExRandom();
     List<Integer> randomNum = new ArrayList<>();
+    UserInput ui = new UserInput();
 
     public GameController() {
-
-        //여기에 모드 설정
         mainGame();
     }
 
+    // 유저에게 입력받고 비교하는 함수.
     private void baseballGame() {
         DataController dataController = new DataController();
 
         while (true) {
-            UserInputValidation userInput = new UserInputValidation();
-            System.out.println(randomNum.size() + "자리 숫자를 입력해주세요 : ");
-            dataController.judgeScore(userInput.userInputValidation(), randomNum);
+            UserInput user = new UserInput();
+            System.out.print(randomNum.size() + "자리 숫자를 입력해주세요 : ");
+            user.userInput();
+            dataController.judgeScore(user.getUserInput(), randomNum);
             System.out.println(randomNum);
             if (dataController.printScore()) break;
         }
     }
 
+    // 게임의 흐름을 컨트롤하는 함수.
     private void mainGame() {
-        UserInput userInput = new UserInput();
+        boolean gameState = true;
 
-        while (true) {
-            System.out.println("3자리 게임은 0, 5자리 게임은 1 을 입력해주세요.");
-            selectNum(userInput.userInt());
+        while (gameState) {
+            System.out.print("3자리 게임은 0, 5자리 게임은 1 을 입력해주세요. : ");
+            selectMode(ui.userInt());
             baseballGame();
-            System.out.println("계속하시려면 0, 끝내시려면 1 을 입력해주세요.");
-            if (userInput.userInt() == 1) break;
+            System.out.print("계속하시려면 0, 끝내시려면 1 을 입력해주세요. : ");
+            if (ui.userInt() == 1) gameState = false;
         }
     }
 
-    private List<Integer> selectNum(int num) {
-        CreateRandom createRandom = new CreateRandom();
-        CreateExRandom createExRandom = new CreateExRandom();
+    // 게임의 모드를 선택하는 함수. 1을 입력시 5자리 모드로 실행
+    private List<Integer> selectMode(int num) {
+        NormalMode normalMode = new NormalMode();
+        ExtendMode extendMode = new ExtendMode();
 
         if (num == 1) {
-            return randomNum = createExRandom.getRandom();
+            return randomNum = extendMode.getRandom();
         }
-        return randomNum = createRandom.getRandom();
+        return randomNum = normalMode.getRandom();
     }
 
 }
